@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -10,17 +9,28 @@ UCLASS()
 class CPP_BASIC_API AC01_Property : public AActor
 {
 	GENERATED_BODY()
+
+
+private:
+	UPROPERTY(EditAnywhere)
+		int32 A = 10;
+	UPROPERTY(EditInstanceOnly)
+		int32 B;
+	UPROPERTY(EditDefaultsOnly)
+		int32 C;
+	UPROPERTY(VisibleAnywhere, Category = "Property")
+		int D = 30;
+
+protected:
+	UPROPERTY(BlueprintReadOnly, EditDefaultsOnly, Category = "Property")
+		int Variable = 60;
 	
 public:	
-	// Sets default values for this actor's properties
 	AC01_Property();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
 
 };
