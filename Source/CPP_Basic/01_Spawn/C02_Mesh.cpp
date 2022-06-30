@@ -3,8 +3,9 @@
 #include "C02_Mesh.h"
 #include "Global.h"
 #include "Components/StaticMeshComponent.h"
-//#include "Materials/MaterialInstanceConstatnt"
 #include "Materials/MaterialInstanceConstant.h"
+#include "Materials/MaterialInstanceDynamic.h"
+
 
 AC02_Mesh::AC02_Mesh()
 {
@@ -43,7 +44,7 @@ AC02_Mesh::AC02_Mesh()
 	ConstructorHelpers::FObjectFinder<T> asset(*InPath);
 	**************************************/
 	UStaticMesh* mesh;
-	CHelpers::GetAsset<UStaticMesh>(&mesh, "StaticMesh'/Game/Meshes/Cube.Cube'");
+	CHelpers::GetAsset<UStaticMesh>(&mesh, "StaticMesh'/Game/Meshes/Cube_Game.Cube_Game'");
 	Mesh->SetStaticMesh(mesh);
 	
 	/*************************************
@@ -95,8 +96,24 @@ void AC02_Mesh::BeginPlay()
 			&material,
 			"MaterialInstanceConstant'/Game/Materials/M_White_Inst.M_White_Inst'"
 		);
+
+	Material = UMaterialInstanceDynamic::Create(material,this);
+	Mesh->SetMaterial(0, Material);
+
+	UKismetSystemLibrary::K2_SetTimer(this, "SetRandomColor", 1, true);
+	//호출하려는 함수를 가지고 있는 객체, 함수명, 1초마다, 반복할지 결정
 	
 }
+
+void AC02_Mesh::SetRandomColor()
+{
+	Material->SetVectorParameterValue("Color", FLinearColor::MakeRandomColor());
+	// Material의 Color에 랜덤컬러를 생성/지정
+	Material->SetScalarParameterValue("Roughness", UKismetMathLibrary::RandomFloatInRange(0,1));
+
+}
+
+
 
 
 /*************************************

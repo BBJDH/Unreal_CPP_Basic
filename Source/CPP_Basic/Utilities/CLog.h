@@ -4,12 +4,23 @@
 
 #include "CoreMinimal.h"
 
-/**
- * 
- */
+
+	/*************************************
+	__FILE__ : 매크로, 파일명
+	__FUNCTION__ : 현재 소속된 함수,
+	__LINE__ : 현재 있는 라인
+
+	**************************************/
+#define LogLine() {CLog::Log(__FILE__, __FUNCTION__, __LINE__);}
+
 class CPP_BASIC_API CLog
 {
 public:
-	CLog();
-	~CLog();
+	static void Log(int32 InValue);
+	static void Log(float InValue);
+	static void Log(FString const & InValue);
+	static void Log(FVector const & InValue);
+	static void Log(FRotator const & InValue);
+	static void Log(UObject const * InValue);
+	static void Log(FString const & InValue, FString const & InFuncName, int32 InLineNumber);
 };
