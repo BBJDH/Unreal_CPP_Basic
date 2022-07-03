@@ -12,6 +12,8 @@
 
 	**************************************/
 #define LogLine() {CLog::Log(__FILE__, __FUNCTION__, __LINE__);}
+#define PrintLine() {CLog::Print(__FILE__, __FUNCTION__, __LINE__);}
+
 
 class CPP_BASIC_API CLog
 {
@@ -23,4 +25,13 @@ public:
 	static void Log(FRotator const & InValue);
 	static void Log(UObject const * InValue);
 	static void Log(FString const & InValue, FString const & InFuncName, int32 InLineNumber);
+
+	//Key:0 이상이면 위치 고정, Duration: 몇초동안 떠있을지, COlor: 글자색
+	static void Print(int32 InValue, int32 InKey = -1, float InDuration = 10, FColor InColor = FColor::Blue);
+	static void Print(float InValue, int32 InKey = -1, float InDuration = 10, FColor InColor = FColor::Blue);
+	static void Print(FString const & InValue, int32 InKey = -1, float InDuration = 10, FColor InColor = FColor::Blue);
+	static void Print(FVector const & InValue, int32 InKey = -1, float InDuration = 10, FColor InColor = FColor::Blue);
+	static void Print(FRotator const & InValue, int32 InKey = -1, float InDuration = 10, FColor InColor = FColor::Blue);
+	static void Print(UObject const * InValue, int32 InKey = -1, float InDuration = 10, FColor InColor = FColor::Blue);
+	static void Print(FString const & InFileName, FString const & InFuncName, int32 InLineNumber);
 };

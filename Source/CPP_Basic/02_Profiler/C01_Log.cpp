@@ -20,14 +20,29 @@ void AC01_Log::BeginPlay()
 	CLog::Log(GetActorLocation());
 	CLog::Log(GetActorRotation());
 	CLog::Log(this);
+	LogLine();
 
-	LogLine()
+
+	CLog::Print(10.0f);
+	CLog::Print(PI);
+	CLog::Print("C01_Log");
+	CLog::Print(GetActorLocation());
+	CLog::Print(GetActorRotation());
+	CLog::Print(this);
+
+	PrintLine();
+	
+
+	LogLine();
 	//GLog->Log("LogTemp", ELogVerbosity::Display, FString::FromInt(100));
 }
 
 void AC01_Log::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	TotalTime += DeltaTime;
+	CLog::Print(TotalTime, 0);
 
 }
 
