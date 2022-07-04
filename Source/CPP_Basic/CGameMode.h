@@ -4,14 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
-#include "CPP_BasicGameModeBase.generated.h"
+#include "CGameMode.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class CPP_BASIC_API ACPP_BasicGameModeBase : public AGameModeBase
+class CPP_BASIC_API ACGameMode : public AGameModeBase
 {
 	GENERATED_BODY()
+
+public:
+	ACGameMode();
 	
 };

@@ -1,6 +1,16 @@
 #pragma once
 
 #include "CoreMinimal.h"
+
+#define CheckTrue(p) {if(p==true) return;}
+#define CheckTrueResult(p,result) {if(p==true) return result;}
+
+#define CheckFalse(p) {if(p==false) return;}
+#define CheckFalseResult(p,result) {if(p==false) return result;}
+
+#define CheckNull(p) {if(p==nullptr) return;}
+#define CheckNullResult(p,result) {if(p==nullptr) return result;}
+
 //언리얼에 필요한 기본적인 요소들 헤더
 
 // 내 프로젝트의 모듈이름이 무엇인지 궁금하다면
@@ -65,5 +75,12 @@ public:
 					*InPath
 				)
 			);
+	}
+
+	template<typename T>
+	static void GetClass(TSubclassOf<T>* OutClass, FString InPath)
+	{
+		ConstructorHelpers::FClassFinder<T> asset(*InPath);
+		*OutClass = asset.Class;
 	}
 };

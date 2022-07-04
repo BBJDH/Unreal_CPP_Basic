@@ -13,13 +13,15 @@ class CPP_BASIC_API AC02_DrawDebug : public AActor
 	
 private:
 	UPROPERTY(EditAnywhere, Category = "Draw")
-	FVector InitLoation[5];
+	FVector InitLocation[5];
 
 	UPROPERTY(EditAnywhere, Category = "Draw")
 	FBox Box;
+	//BOX 구조체
 
-	UPROPERTY(EditAnywhere, Category = "Draw")
-	FTransform Transform;
+	//UPROPERTY(EditAnywhere, Category = "Draw")
+	//FTransform Transform;
+	//트랜스폼 BP와 동일
 
 private:
 	UPROPERTY(VisibleDefaultsOnly)
@@ -37,5 +39,6 @@ public:
 
 private:
 	FVector Location[5];
+	//내부적으로 사용할 Location
 
 };
