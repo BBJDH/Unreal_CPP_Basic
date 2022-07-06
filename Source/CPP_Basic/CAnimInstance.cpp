@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "CAnimInstance.h"
@@ -13,8 +12,9 @@ void UCAnimInstance::NativeBeginPlay()
 	Super::NativeBeginPlay();
 
 	OwnerCharacter = Cast<ACharacter>(TryGetPawnOwner());
+	//캐스팅 실패시 nullptr
 
-	CLog::Print("Begin Play");
+	//CLog::Print("Begin Play",0,10,FColor::Red);
 
 }
 
@@ -29,5 +29,7 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	CheckNull(OwnerCharacter);
 
 	Speed = OwnerCharacter->GetVelocity().Size2D();
+	CLog::Print("Update",0, 10, FColor::Green);
+
 
 }

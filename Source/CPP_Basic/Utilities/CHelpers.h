@@ -2,14 +2,15 @@
 
 #include "CoreMinimal.h"
 
-#define CheckTrue(p) {if(p==true) return;}
-#define CheckTrueResult(p,result) {if(p==true) return result;}
+#define CheckTrue(p) {if(p==true) return;} // True시 함수 종료
+#define CheckTrueResult(p,result) {if(p==true) return result;}// True시 함수 종료, 값리턴
 
-#define CheckFalse(p) {if(p==false) return;}
-#define CheckFalseResult(p,result) {if(p==false) return result;}
+#define CheckFalse(p) {if(p==false) return;}// false시 함수 종료
+#define CheckFalseResult(p,result) {if(p==false) return result;} // false시 함수 종료, 값리턴
+//True시 종료 리턴이 있다면 값 반환
 
-#define CheckNull(p) {if(p==nullptr) return;}
-#define CheckNullResult(p,result) {if(p==nullptr) return result;}
+#define CheckNull(p) {if(p==nullptr) return;}	//nullptr이라면 해당 함수 종료
+#define CheckNullResult(p,result) {if(p==nullptr) return result;}// nullptr이라면 인자값p를 리턴
 
 //언리얼에 필요한 기본적인 요소들 헤더
 

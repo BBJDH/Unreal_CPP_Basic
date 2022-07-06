@@ -1,4 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -20,7 +19,7 @@ protected:
 	float Speed;
 
 public:
-	virtual void NativeBeginPlay()override;
+	void NativeBeginPlay()override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds)override;
 	//언리얼 에서는 가상함수의 오버라이드 명시가 의무사항이다
 private:

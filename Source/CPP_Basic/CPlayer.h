@@ -35,4 +35,15 @@ public:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+
+private:
+	void OnMoveForward(float InAxisValue);
+	void OnMoveRight(float InAxisValue);
+
+	void HorizontalLook(float InAxisValue);
+	void VerticalLook(float InAxisValue);
+
+	void OnRun();
+	void OffRun();
+	
 };
