@@ -2,7 +2,6 @@
 
 #include "03_Collision/C02_ComponentOverlap.h"
 #include "Global.h"
-#include "Components/SceneComponent.h"
 #include "Components/BoxComponent.h"
 #include "Components/TextRenderComponent.h"
 
@@ -38,6 +37,54 @@ void AC02_ComponentOverlap::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	//FComponentBeginOverlapSignature 자료형
+	Box->OnComponentBeginOverlap.AddDynamic(this, &AC02_ComponentOverlap::OnComponentBeginOverlap);
+	//FComponentEndOverlapSignature 자료형
+	Box->OnComponentEndOverlap.AddDynamic(this, &AC02_ComponentOverlap::OnComponentEndOverlap);
+
+	//UPrimitiveComponent*, OverlappedComponent, AActor*, OtherActor, UPrimitiveComponent*, OtherComp, int32, OtherBodyIndex, bool, bFromSweep, const FHitResult &, SweepResult
 }
 
+void AC02_ComponentOverlap::OnComponentBeginOverlap
+(
+	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+	int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult
+)
+{
+	FString str;
+	str.Append("Begin Overlap Component : ");
+	str.Append(OverlappedComponent->GetName());
+	CLog::Log(str);
 
+	str = "";
+	str.Append("Other Actor : ");
+	str.Append(OtherActor->GetName());
+	CLog::Log(str);
+
+	str = "";
+	str.Append("Other Component : ");
+	str.Append(OtherComp->GetName());
+	CLog::Log(str);
+}
+
+void AC02_ComponentOverlap::OnComponentEndOverlap
+(
+	UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex
+)
+{
+	FString str;
+	str.Append("End Overlap Component : ");
+	str.Append(OverlappedComponent->GetName());
+	CLog::Log(str);
+
+	str = "";
+	str.Append("Other Actor : ");
+	str.Append(OtherActor->GetName());
+	CLog::Log(str);
+
+	str = "";
+	str.Append("Other Component : ");
+	str.Append(OtherComp->GetName());
+	CLog::Log(str);
+}

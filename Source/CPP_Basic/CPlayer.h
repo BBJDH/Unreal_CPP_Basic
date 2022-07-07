@@ -43,6 +43,8 @@ private:
 	void HorizontalLook(float InAxisValue);
 	void VerticalLook(float InAxisValue);
 
+
+private:
 	void OnRun();
 	void OffRun();
 	

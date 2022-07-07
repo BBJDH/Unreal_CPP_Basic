@@ -12,6 +12,19 @@
 #define CheckNull(p) {if(p==nullptr) return;}	//nullptr이라면 해당 함수 종료
 #define CheckNullResult(p,result) {if(p==nullptr) return result;}// nullptr이라면 인자값p를 리턴
 
+
+//#define CreateTextRender() \
+//{ \
+//	CHelpers::CreateComponent<UTextRenderComponent>(this, &Text, "Text", Root); \
+//	Text->SetRelativeLocation(FVector(0, 0, 100)); \
+//	Text->SetRelativeRotation(FRotator(0, 100, 0)); \
+//	Text->SetRelativeScale3D(FVector(2)); \ 
+//	Text->TextRenderColor = FColor::Red; \
+//	Text->HorizontalAlignment = EHorizTextAligment::EHTA_Center;\
+//	Text->Text = FText::FromString(GetName().Replace(TEXT("Default__"), TEXT("")));\
+//
+//}
+
 //언리얼에 필요한 기본적인 요소들 헤더
 
 // 내 프로젝트의 모듈이름이 무엇인지 궁금하다면
