@@ -13,17 +13,16 @@
 #define CheckNullResult(p,result) {if(p==nullptr) return result;}// nullptr이라면 인자값p를 리턴
 
 
-//#define CreateTextRender() \
-//{ \
-//	CHelpers::CreateComponent<UTextRenderComponent>(this, &Text, "Text", Root); \
-//	Text->SetRelativeLocation(FVector(0, 0, 100)); \
-//	Text->SetRelativeRotation(FRotator(0, 100, 0)); \
-//	Text->SetRelativeScale3D(FVector(2)); \ 
-//	Text->TextRenderColor = FColor::Red; \
-//	Text->HorizontalAlignment = EHorizTextAligment::EHTA_Center;\
-//	Text->Text = FText::FromString(GetName().Replace(TEXT("Default__"), TEXT("")));\
-//
-//}
+#define CreateTextRender() \
+{ \
+	CHelpers::CreateComponent<UTextRenderComponent>(this, &Text, "Text", Root); \
+	Text->SetRelativeLocation(FVector(0, 0, 100)); \
+	Text->SetRelativeRotation(FRotator(0, 180, 0)); \
+	Text->SetRelativeScale3D(FVector(2)); \
+	Text->TextRenderColor = FColor::Red; \
+	Text->HorizontalAlignment = EHorizTextAligment::EHTA_Center; \
+	Text->Text = FText::FromString(GetName().Replace(TEXT("Default__"), TEXT(""))); \
+}
 
 //언리얼에 필요한 기본적인 요소들 헤더
 
@@ -96,5 +95,33 @@ public:
 	{
 		ConstructorHelpers::FClassFinder<T> asset(*InPath);
 		*OutClass = asset.Class;
+	}
+
+	template<typename T>
+	static T* FindActor(UWorld * InWorld)
+	{
+		for (AActor* actor : InWorld->GetCurrentLevel()->Actors)//월드의 현재 레벨의 모든 액터 순회
+		{
+			if (!!actor && actor->IsA<T>()) //IsA 상속이다 : TRUE
+			{
+				return Cast<T>(actor);
+			}
+		}
+		return nullptr;
+	}
+
+	template<typename T>
+	static void FindActors(UWorld * InWorld, TArray<T *>& OutArray)
+	{
+		OutArray.Empty();
+
+		for (AActor* actor : InWorld->GetCurrentLevel()->Actors)//월드의 현재 레벨의 모든 액터 순회
+		{
+			if (!!actor && actor->IsA<T>()) //IsA 상속이다 : TRUE
+			{
+				OutArray.Add(Cast<T>(actor));
+			}
+		}
+		return nullptr;
 	}
 };

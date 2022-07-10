@@ -9,29 +9,31 @@ AC01_ActorOverlab::AC01_ActorOverlab()
 {
 	CHelpers::CreateComponent<USceneComponent>(this, &Root, "Root");
 	CHelpers::CreateComponent<UBoxComponent>(this, &Box, "Box", Root);
-	CHelpers::CreateComponent<UTextRenderComponent>(this, &Text, "Text", Root);
+
+	CreateTextRender();
+
+//매크로 치환
+//CHelpers::CreateComponent<UTextRenderComponent>(this, &Text, "Text", Root);
+//Text->SetRelativeLocation(FVector(0, 0, 100));
+//Text->SetRelativeRotation(FRotator(0, 100, 0));
+///*************************************
+
+// 에디터 회전 순서 : Roll Pitch Yaw 
+// C++	: Pitch(Y) Yaw(Z) Roll(X) 로 다름
+
+//**************************************/
+//
+//Text->SetRelativeScale3D(FVector(2)); //BP 자물쇠 잠그고 2설정
+//Text->TextRenderColor = FColor::Red;
+//Text->HorizontalAlignment = EHorizTextAligment::EHTA_Center;
+////가운데 정렬
+//Text->Text = FText::FromString(GetName().Replace( TEXT("Default__") , TEXT("") ));
+////디폴트로 Default__가 붙으니 없애는 처리, UI에서는 TEXT형을 사용  
 
 
 	Box->SetRelativeScale3D(FVector(3));  //XYZ 전부 3배
 	Box->bHiddenInGame = false;
 
-	Text->SetRelativeLocation(FVector(0, 0, 100));
-	Text->SetRelativeRotation(FRotator(0, 100, 0));
-
-
-	/*************************************
-
-	 에디터 회전 순서 : Roll Pitch Yaw 
-	 C++	: Pitch(Y) Yaw(Z) Roll(X) 로 다름
-
-	**************************************/
-	
-	Text->SetRelativeScale3D(FVector(2)); //BP 자물쇠 잠그고 2설정
-	Text->TextRenderColor = FColor::Red;
-	Text->HorizontalAlignment = EHorizTextAligment::EHTA_Center;
-	//가운데 정렬
-	Text->Text = FText::FromString(GetName().Replace( TEXT("Default__") , TEXT("") ));
-	//디폴트로 Default__가 붙으니 없애는 처리, UI에서는 TEXT형을 사용
 
 }
 
@@ -43,7 +45,8 @@ void AC01_ActorOverlab::BeginPlay()
 
 	OnActorBeginOverlap.AddDynamic(this, &AC01_ActorOverlab::OnBeginOverlap);
 	OnActorEndOverlap.AddDynamic(this, &AC01_ActorOverlab::OnEndOverlap);
-	//함수포인터 연결
+	//함수포인터 연결, 블프와 마찬가지로 시작시 바인딩 해준다
+	//AActor에서 퍼블릭으로 델리게이트들이 선언되어 있다
 
 }
 
@@ -72,12 +75,30 @@ void AC01_ActorOverlab::BeginPlay()
 
 void AC01_ActorOverlab::OnBeginOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
-	CLog::Print(TEXT("Begin Overlap : " + OtherActor->GetName()));
+	FString str;
+	str = FString::Printf
+	(
+		TEXT("Begin - Overlapped : %s, Other: %s"),
+		*OverlappedActor->GetName(),
+		*OtherActor->GetName()
+	);
+
+	CLog::Print(str);
+	//CLog::Print(TEXT("Begin Overlap : " + OtherActor->GetName()));
 }
 
 void AC01_ActorOverlab::OnEndOverlap(AActor* OverlappedActor, AActor* OtherActor)
 {
-	CLog::Print(TEXT("End Overlap : " + OtherActor->GetName()), -1, 10, FColor::Red);
+	FString str;
+	str = FString::Printf
+	(
+		TEXT("End - Overlapped : %s, Other: %s"),
+		*OverlappedActor->GetName(),
+		*OtherActor->GetName()
+	);
+
+	CLog::Print(str);
+	//CLog::Print(TEXT("End Overlap : " + OtherActor->GetName()), -1, 10, FColor::Red);
 }
 
 /*************************************
