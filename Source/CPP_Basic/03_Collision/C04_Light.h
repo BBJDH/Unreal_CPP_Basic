@@ -34,5 +34,8 @@ private:
 		void OnLight();
 	UFUNCTION()
 		void OffLight();
+
+	UFUNCTION()
+	FString OnRandomColor(FLinearColor InColor);
 };
 //공개 안하면 터진다

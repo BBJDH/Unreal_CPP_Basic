@@ -47,7 +47,11 @@ void AC03_OverlapAndHit::OnComponentBeginOverlap
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult
 )
 {
-	CLog::Print("BeginOverlap :" + OtherActor->GetName());
+	FString str;
+	str = FString::Printf(TEXT("Begin - Other Actor : %s"), *OtherActor->GetName());
+
+	CLog::Print(str);
+	//CLog::Print("BeginOverlap :" + OtherActor->GetName());
 }
 
 void AC03_OverlapAndHit::OnComponentEndOverlap
@@ -57,21 +61,21 @@ void AC03_OverlapAndHit::OnComponentEndOverlap
 )
 {
 
-	//FString str;
-	//str = FString::Printf(TEXT("Begin - Other Actor : %s"), *OtherActor->GetName());
+	FString str;
+	str = FString::Printf(TEXT("End - Other Actor : %s"), *OtherActor->GetName());
 
-	//CLog::Print(str);
-	CLog::Print("EndOverlap :" + OtherActor->GetName());
+	CLog::Print(str);
+	//CLog::Print("EndOverlap :" + OtherActor->GetName());
 
 }
 
 void AC03_OverlapAndHit::OnComponentHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, FHitResult const & Hit)
 {
 
-	//FString str;
-	//str = FString::Printf(TEXT("End - Other Actor : %s"), *OtherActor->GetName());
+	FString str;
+	str = FString::Printf(TEXT("Hit - Other Actor : %s"), *OtherActor->GetName());
 
-	//CLog::Print(str);
-	CLog::Print("Hit :" + OtherActor->GetName());
+	CLog::Print(str);
+	//CLog::Print("Hit :" + OtherActor->GetName());
 
 }

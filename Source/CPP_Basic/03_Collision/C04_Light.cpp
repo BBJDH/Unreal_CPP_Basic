@@ -42,10 +42,13 @@ void AC04_Light::BeginPlay()
 	//Actor 찾을때 자주 사용된다 GetAllActorsofClass도 마찬가지
 
 	AC04_Trigger* trigger = CHelpers::FindActor<AC04_Trigger>(GetWorld());
+	//가끔 펜딩킬 상태의 액터가 들어오므로 널체크가 필수
 	if (!!trigger)
 	{
 		trigger->OnFBoxLightBeginOverlap.BindUFunction(this, "OnLight");
 		trigger->OnFBoxLightEndOverlap.BindUFunction(this, "OffLight");
+
+		trigger->OnBoxLightColorOverlap.BindUFunction(this, "OnRandomColor");
 	}
 }
 
@@ -57,5 +60,15 @@ void AC04_Light::OnLight()
 void AC04_Light::OffLight()
 {
 	PointLight->SetVisibility(false);
+	PointLight2->SetVisibility(false);
 
+}
+
+FString AC04_Light::OnRandomColor(FLinearColor InColor)
+{
+
+	PointLight2->SetVisibility(true);
+	PointLight2->SetLightColor(InColor);
+
+	return InColor.ToString();
 }
