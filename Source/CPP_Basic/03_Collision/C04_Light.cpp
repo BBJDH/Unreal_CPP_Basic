@@ -45,8 +45,8 @@ void AC04_Light::BeginPlay()
 	//가끔 펜딩킬 상태의 액터가 들어오므로 널체크가 필수
 	if (!!trigger)
 	{
-		trigger->OnFBoxLightBeginOverlap.BindUFunction(this, "OnLight");
-		trigger->OnFBoxLightEndOverlap.BindUFunction(this, "OffLight");
+		trigger->OnBoxLightBeginOverlap.BindUFunction(this, "OnLight");
+		trigger->OnBoxLightEndOverlap.BindUFunction(this, "OffLight");
 
 		trigger->OnBoxLightColorOverlap.BindUFunction(this, "OnRandomColor");
 	}

@@ -1,0 +1,54 @@
+
+
+#include "03_Collision/C05_SpotLight.h"
+#include "Global.h"
+#include "C05_MultiTrigger.h"
+#include "Components/SpotLightComponent.h"
+#include "Components/TextRenderComponent.h"
+
+AC05_SpotLight::AC05_SpotLight()
+{
+	CHelpers::CreateComponent<USceneComponent>(this, &Root, "Root");
+
+
+	for (int32 i = 0; i < 3; i++)
+	{
+		FString str;
+		str.Append("SpotLight");
+		str.Append(FString::FromInt(i + 1));
+
+		CHelpers::CreateComponent<USpotLightComponent>(this, &SpotLights[i], FName(str), Root);
+
+		SpotLights[i]->SetRelativeLocation(FVector(0, i * 150, 0));
+		SpotLights[i]->SetRelativeRotation(FRotator(-90,0,0));
+		SpotLights[i]->Intensity = 1e+5f;
+		SpotLights[i]->OuterConeAngle = 25;
+	}
+
+	CreateTextRender();
+}
+
+void AC05_SpotLight::BeginPlay()
+{
+	Super::BeginPlay();
+
+	AC05_MultiTrigger* trigger = CHelpers::FindActor<AC05_MultiTrigger>(GetWorld());
+	if (!!trigger)
+	{
+		trigger->OnMultiLightOverlap.AddUFunction(this, "OnLight");
+	}
+	
+}
+
+void AC05_SpotLight::OnLight(int32 InIdex, FLinearColor InColor)
+{
+	for (int32 i = 0; i < 3; i++)
+	{
+		SpotLights[i]->SetLightColor(FLinearColor::White);
+		
+	}
+
+	SpotLights[InIdex]->SetLightColor(InColor);
+}
+
+

@@ -38,8 +38,8 @@ private:
 
 public:
 	//델리게이트로 선언된 변수는 변수이지만 외부에서 바인딩하기 쉽게 퍼블릭
-	FBoxLightOverlap OnFBoxLightBeginOverlap;
-	FBoxLightOverlap OnFBoxLightEndOverlap;
+	FBoxLightOverlap OnBoxLightBeginOverlap;
+	FBoxLightOverlap OnBoxLightEndOverlap;
 
 	FBoxLightColorOverlap OnBoxLightColorOverlap;
 };

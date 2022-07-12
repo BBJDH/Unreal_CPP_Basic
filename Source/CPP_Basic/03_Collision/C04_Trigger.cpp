@@ -31,8 +31,8 @@ void AC04_Trigger::OnComponentBeginOverlap
 	int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult
 )
 {
-	if (OnFBoxLightBeginOverlap.IsBound())//해당 델리게이션에 연결된 함수가 있다면
-		OnFBoxLightBeginOverlap.Execute();
+	if (OnBoxLightBeginOverlap.IsBound())//해당 델리게이션에 연결된 함수가 있다면
+		OnBoxLightBeginOverlap.Execute();
 
 	if (OnBoxLightColorOverlap.IsBound())
 	{
@@ -50,8 +50,8 @@ void AC04_Trigger::OnComponentEndOverlap
 )
 {
 
-	if (OnFBoxLightEndOverlap.IsBound())
-		OnFBoxLightEndOverlap.Execute();
+	if (OnBoxLightEndOverlap.IsBound())
+		OnBoxLightEndOverlap.Execute();
 }
 /*************************************
 임의의 델리게이션을 정하여 사용
