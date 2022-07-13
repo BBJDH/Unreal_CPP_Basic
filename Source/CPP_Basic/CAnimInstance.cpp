@@ -33,3 +33,9 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 
 }
+
+void UCAnimInstance::BlueprintBeginPlay_Implementation()
+{
+	CLog::Print("Blueprint_BeginPlay");
+	//애니메이션 Beginplay시 콜
+}

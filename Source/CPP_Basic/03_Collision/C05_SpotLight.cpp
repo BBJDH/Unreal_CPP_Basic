@@ -33,10 +33,9 @@ void AC05_SpotLight::BeginPlay()
 	Super::BeginPlay();
 
 	AC05_MultiTrigger* trigger = CHelpers::FindActor<AC05_MultiTrigger>(GetWorld());
-	if (!!trigger)
-	{
-		trigger->OnMultiLightOverlap.AddUFunction(this, "OnLight");
-	}
+	CheckNull(trigger);
+
+	trigger->OnMultiLightOverlap.AddUFunction(this, "OnLight");
 	
 }
 

@@ -19,6 +19,9 @@ protected:
 	float Speed;
 
 public:
+	void BlueprintBeginPlay_Implementation();
+
+public:
 	void NativeBeginPlay()override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds)override;
 	//언리얼 에서는 가상함수의 오버라이드 명시가 의무사항이다

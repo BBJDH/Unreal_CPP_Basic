@@ -62,7 +62,14 @@ ACPlayer::ACPlayer()
 void ACPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	TArray<UMaterialInterface *> materials = GetMesh()->GetMaterials();
 	
+	for (int i = 0; i < materials.Num(); i++)
+	{
+		Materials[i] = UMaterialInstanceDynamic::Create(materials[i], this);
+		GetMesh()->SetMaterial(i, Materials[i]);
+	}
 }
 
 void ACPlayer::Tick(float DeltaTime)
@@ -138,3 +145,9 @@ void ACPlayer::OffRun()
 	GetCharacterMovement()->MaxWalkSpeed = 400;
 
 }
+
+void ACPlayer::ChangeColor(FLinearColor InColor)
+{
+	for (UMaterialInstanceDynamic* material : Materials)
+		material->SetVectorParameterValue("BodyColor", InColor);
+}//이런식으로 블프와 통신하도록 많이 사용한다

@@ -38,6 +38,7 @@ void AC04_Trigger::OnComponentBeginOverlap
 	{
 		FLinearColor color = FLinearColor::MakeRandomColor();
 		FString str = OnBoxLightColorOverlap.Execute(color);
+		//Single Bind라면 Execute안에 파라미터갯수 만큼 넣어서 전달
 
 		CLog::Print(str);
 	}

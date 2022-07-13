@@ -43,13 +43,13 @@ void AC04_Light::BeginPlay()
 
 	AC04_Trigger* trigger = CHelpers::FindActor<AC04_Trigger>(GetWorld());
 	//가끔 펜딩킬 상태의 액터가 들어오므로 널체크가 필수
-	if (!!trigger)
-	{
-		trigger->OnBoxLightBeginOverlap.BindUFunction(this, "OnLight");
-		trigger->OnBoxLightEndOverlap.BindUFunction(this, "OffLight");
+	//uclass 이하는 무조건 포인터로 생각하자
+	CheckNull(trigger);
 
-		trigger->OnBoxLightColorOverlap.BindUFunction(this, "OnRandomColor");
-	}
+	trigger->OnBoxLightBeginOverlap.BindUFunction(this, "OnLight");
+	trigger->OnBoxLightEndOverlap.BindUFunction(this, "OffLight");
+
+	trigger->OnBoxLightColorOverlap.BindUFunction(this, "OnRandomColor");
 }
 
 void AC04_Light::OnLight()
@@ -70,5 +70,6 @@ FString AC04_Light::OnRandomColor(FLinearColor InColor)
 	PointLight2->SetVisibility(true);
 	PointLight2->SetLightColor(InColor);
 
-	return InColor.ToString();
+	//Set함수는 BeginPlay 이후에 사용한다, 변경 후 적용 까지.
+	return "Color : "+ InColor.ToString();
 }

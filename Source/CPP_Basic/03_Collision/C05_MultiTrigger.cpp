@@ -40,3 +40,32 @@ void AC05_MultiTrigger::OnComponentBeginOverlap(
 	OnMultiLightOverlap.Broadcast(index, color);
 	//파라미터 전파 -> 바인딩된 함수에 index, color를 파라미터로 호출한다
 }
+
+/*************************************
+EVENT 블프 공개 안됨
+EVENT는 클래스에 소속되어 사용된다는 것을 주의하자
+델리게이션과 이벤트 차이
+연결 하는것은 외부에서 가능하지만(Bind())
+Isbound()
+Broadcast()
+Clear()
+이 세가지는 클래스 내부에서만 콜 가능하다
+
+델리게이션과 다르게
+Class A
+{
+	DECLARE_EVENT
+	이렇게 나간다
+Isbound()
+Broadcast()
+Clear()
+이 클래스 안에서만 가능!
+
+클래스 한정을 시키려고 EVENT를 써왔으나
+SPARSE가 생기면서 SPARSE를 채용한다
+}
+
+
+델리게이션 사용시 
+해당 클래스 안에서만 사용하도록 권고, 선생님 코드 참고
+**************************************/

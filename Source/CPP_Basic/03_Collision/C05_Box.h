@@ -34,5 +34,6 @@ protected:
 private:
 	class UMaterialInstanceDynamic* Materials[3];
 	FVector WorldLocation[3];
+	//박스를 기록할 최초 위치
 
 };

@@ -7,6 +7,7 @@
 
 
 DECLARE_MULTICAST_DELEGATE_TwoParams(FMultiLightOverlap, int32, FLinearColor);
+
 UCLASS()
 class CPP_BASIC_API AC05_MultiTrigger : public AActor
 {
@@ -36,5 +37,5 @@ private:
 
 public:
 	FMultiLightOverlap OnMultiLightOverlap;
-
+	//멀티 델리게이트는 Add한 순서대로 콜된다
 };
