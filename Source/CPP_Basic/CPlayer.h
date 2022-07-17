@@ -53,6 +53,6 @@ public:
 	void ChangeColor(FLinearColor InColor);
 	//BlueprintCallable 블프에서 호출가능 블프 함수들이 이걸로 정의됨
 private:
-	class UMaterialInstanceDynamic* Materials[2];
-	
+	TArray<class UMaterialInstanceDynamic*> Materials;
+	//class UMaterialInstanceDynamic* Materials[2];
 };

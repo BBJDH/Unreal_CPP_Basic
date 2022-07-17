@@ -122,6 +122,6 @@ public:
 				OutArray.Add(Cast<T>(actor));
 			}
 		}
-		return nullptr;
+//		return nullptr;
 	}
 };

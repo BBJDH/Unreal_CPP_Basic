@@ -18,9 +18,9 @@ protected:
 
 	float Speed;
 
-public:
-	void BlueprintBeginPlay_Implementation();
-
+//public:
+//	void BlueprintBeginPlay_Implementation();
+//블프 콜이라서 무시됨
 public:
 	void NativeBeginPlay()override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds)override;

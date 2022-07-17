@@ -9,6 +9,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"  //입력 컴포넌트
+#include "Materials/MaterialInstanceDynamic.h"
 
 ACPlayer::ACPlayer()
 {
@@ -65,9 +66,11 @@ void ACPlayer::BeginPlay()
 
 	TArray<UMaterialInterface *> materials = GetMesh()->GetMaterials();
 	
-	for (int i = 0; i < materials.Num(); i++)
+
+	for (int32 i = 0; i < materials.Num(); i++)
 	{
-		Materials[i] = UMaterialInstanceDynamic::Create(materials[i], this);
+		Materials.Add(UMaterialInstanceDynamic::Create(materials[i], this));
+		//Materials[i] = UMaterialInstanceDynamic::Create(materials[i], this);
 		GetMesh()->SetMaterial(i, Materials[i]);
 	}
 }
@@ -75,7 +78,6 @@ void ACPlayer::BeginPlay()
 void ACPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void ACPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
