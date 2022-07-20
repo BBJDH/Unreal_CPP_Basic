@@ -2,6 +2,7 @@
 #include "Global.h"
 #include "Components/TextRenderComponent.h"
 
+
 AC03_MultiLineTrace::AC03_MultiLineTrace()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -23,34 +24,41 @@ void AC03_MultiLineTrace::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	FVector start = GetActorLocation();
-	FVector start1 = FVector(start.X + 50, start.Y, start.Z); 
-	FVector start2 = FVector(start.X - 50, start.Y, start.Z);
+	FVector start1 = FVector(start.X + 50, start.Y, start.Z);	//더 깊은 쪽
+	FVector start2 = FVector(start.X - 50, start.Y, start.Z);	//가까운 쪽
 
 	FVector end1 = start1 * GetActorForwardVector() * 500;
 	FVector end2 = start2 * GetActorForwardVector() * 500;
 
+	//FVector end1 = start1 * GetActorForwardVector()
 
 	TArray<AActor*> ignores;
 	TArray<FHitResult> hitResult1;
 	TArray<FHitResult> hitResult2;
 
 	TArray<TEnumAsByte<EObjectTypeQuery>> queries;
-	queries.Add(EObjectTypeQuery::ObjectTypeQuery1);	//WorldStatic을 의미
+	queries.Add(EObjectTypeQuery::ObjectTypeQuery1);	//1 : WorldStatic을 의미, 2는 월드 다이나믹
+	//queries.Add(EObjectTypeQuery::ObjectTypeQuery2);	//1 : WorldStatic을 의미, 2는 월드 다이나믹
 
-	UKismetSystemLibrary::LineTraceMulti
+	UKismetSystemLibrary::LineTraceMulti	//ByChannel, ByProfile도 결국은 Channel을 호출함
 	(
 		GetWorld(),
 		start1,
 		end1,
-		ETraceTypeQuery::TraceTypeQuery1,	//1번이 Visibility
+		ETraceTypeQuery::TraceTypeQuery1,	//1번이 Visibility 2번이 카메라
 		false,								//복합충돌 유무
 		ignores,							//예외목록 없음
 		EDrawDebugTrace::ForOneFrame, 
-		hitResult1, 
+		hitResult1,							//배열에 저장
 		true
 	);
+/*************************************
+해당 채널에 대하여,
+첫 블록이 발생할 때 까지 모든 오버랩을 반환
+**************************************/
 	
-	UKismetSystemLibrary::LineTraceMultiForObjects
+	
+	UKismetSystemLibrary::LineTraceMultiForObjects	//ByObjectType
 	(
 		GetWorld(),
 		start2,
@@ -69,14 +77,15 @@ void AC03_MultiLineTrace::Tick(float DeltaTime)
 	{
 		TotalTime = 0;
 
-		CLog::Log("Channel");
+		CLog::Log("--- Channel ---");
 		for (FHitResult& hitResult : hitResult1)
 			CLog::Log(hitResult.GetActor()->GetName());
 
-		CLog::Log("Objects");
+		CLog::Log("--- Objects ---");
 		for (FHitResult& hitResult : hitResult2)
 			CLog::Log(hitResult.GetActor()->GetName());
 	}
+
 
 }
 

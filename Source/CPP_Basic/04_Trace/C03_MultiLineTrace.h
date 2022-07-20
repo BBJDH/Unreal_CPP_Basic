@@ -9,12 +9,13 @@ class CPP_BASIC_API AC03_MultiLineTrace : public AActor
 {
 	GENERATED_BODY()
 
-	private:
+private:
 	UPROPERTY(VisibleDefaultsOnly)
-	class USceneComponent* Root;
+		class USceneComponent* Root;
 
 	UPROPERTY(VisibleDefaultsOnly)
-	class UTextRenderComponent* Text;
+		class UTextRenderComponent* Text;
+
 
 public:
 	AC03_MultiLineTrace();

@@ -73,8 +73,9 @@ ResetParticles()이 필요
 		UStaticMeshComponent * mesh = Cast<UStaticMeshComponent>(hitResult.GetActor()->GetRootComponent());
 		//box 들의 스태틱 메시 컴포넌트로 캐스팅, 스태틱 메시 액터들은 스태틱 메시 컴포넌트가 루트로 되어있다
 		if (!!mesh && mesh->IsSimulatingPhysics()) //물리값을 받도록 되어있다면
-			mesh->AddRadialImpulse(location, 1000, mesh->GetMass() * ImpulseAmount, ERadialImpulseFalloff::RIF_Linear);
+			mesh->AddRadialImpulse(location, 1000, ImpulseAmount, ERadialImpulseFalloff::RIF_Linear);
 		//구면으로 퍼져나가는 힘을 부여, 위치, 반경, 힘(ma로 줌), Linear는 점점 힘이 줄어듬,Constant는 힘이 일정
+		//ImpulseAmount 상수로 넣으면 알아서 처리됨 질량 따라서
 	}
 }
 

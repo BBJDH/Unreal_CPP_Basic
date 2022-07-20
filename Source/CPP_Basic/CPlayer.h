@@ -16,13 +16,30 @@ class CPP_BASIC_API ACPlayer : public ACharacter
 	Arrow Component 포함되어 있음
 	**************************************/
 
+		//UPROPERTY(EditDefaultsOnly, Category = "Rifle")
+		//TSubclassOf<class ACRifle> RifleClass;
 
 private:
+
+	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
+	float ZoomSpeed = 1000;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
+	FVector2D ZoomRange = FVector2D(0, 500);
+
+	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
+	float ZoomInterpSpeed = 5;
+
+
+
 	UPROPERTY(VisibleDefaultsOnly)
 	class USpringArmComponent* SpringArm;
 
 	UPROPERTY(VisibleDefaultsOnly)
 	class UCameraComponent* Camera;
+
+	UPROPERTY(VisibleDefaultsOnly)
+		class UCFeetComponent* Feet;
 
 public:
 	ACPlayer();
@@ -43,6 +60,7 @@ private:
 	void HorizontalLook(float InAxisValue);
 	void VerticalLook(float InAxisValue);
 
+	void OnZoom(float InAxisValue);
 
 private:
 	void OnRun();
@@ -55,4 +73,10 @@ public:
 private:
 	TArray<class UMaterialInstanceDynamic*> Materials;
 	//class UMaterialInstanceDynamic* Materials[2];
+
+private:
+	//class ACRifle* Rifle;
+
+private:
+	float Zooming;
 };

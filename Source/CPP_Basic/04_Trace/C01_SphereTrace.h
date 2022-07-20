@@ -23,7 +23,10 @@ class CPP_BASIC_API AC01_SphereTrace : public AActor
 	//그릴 시간, 초
 
 	UPROPERTY(EditAnywhere)
-	float ImpulseAmount = 550;
+	float MaxMass = 200;
+
+	UPROPERTY(EditAnywhere)
+	float ImpulseAmount = 100000;
 	//Impulse : 힘을 받는정도(충격량) force : 때리는 힘(직접 준 일)
 	//포스 : 받고 있는 힘, 임펄스 : 변돌될 힘
 

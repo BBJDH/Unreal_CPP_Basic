@@ -31,6 +31,11 @@ void UCAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	Speed = OwnerCharacter->GetVelocity().Size2D();
 	CLog::Print("Update",0, 10, FColor::Green);
 
+	UCFeetComponent* feet = CHelpers::GetComponent<UCFeetComponent>(OwnerCharacter);
+
+	CheckNull(feet);
+	bfeet = true;
+	FeetData = feet->GetData();
 
 }
 

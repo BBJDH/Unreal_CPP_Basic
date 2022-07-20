@@ -66,6 +66,21 @@ public:
 		//InActor->RootComponent(*OutComponent); //Protected
 
 	}
+
+
+	template<typename T>
+	static void CreateActorComponent(AActor* InActor, T** OutComponent, FName InName)
+	{
+		*OutComponent = InActor->CreateDefaultSubobject<T>(InName);
+	}
+
+	template<typename T>
+	static T* GetComponent(AActor* InActor)
+	{
+		return Cast<T>(InActor->GetComponentByClass(T::StaticClass()));
+	}
+
+
 	template<typename T>
 	static void GetAsset(T** OutObject, FString InPath)
 	{

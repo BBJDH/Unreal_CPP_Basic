@@ -2,6 +2,7 @@
 
 #include "CPlayer.h"
 #include "Global.h"
+//#include "05_TPS/CRifle.h"
 #include "CAnimInstance.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -9,6 +10,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"  //입력 컴포넌트
+#include "05_IK/CFeetComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 
 ACPlayer::ACPlayer()
@@ -58,6 +60,8 @@ ACPlayer::ACPlayer()
 	SpringArm->bUsePawnControlRotation = true;	//Pawn따라서 회전할지
 
 
+	CHelpers::CreateActorComponent<UCFeetComponent>(this, &Feet, "Feet");
+
 }
 
 void ACPlayer::BeginPlay()
@@ -73,6 +77,9 @@ void ACPlayer::BeginPlay()
 		//Materials[i] = UMaterialInstanceDynamic::Create(materials[i], this);
 		GetMesh()->SetMaterial(i, Materials[i]);
 	}
+
+	//Rifle = ACRifle::Spawn(RifleClass, this);
+	//총 생성
 }
 
 void ACPlayer::Tick(float DeltaTime)
@@ -102,6 +109,8 @@ GetInputComponent를 만들어서 전달
 
 	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::HorizontalLook);
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::VerticalLook);
+
+	PlayerInputComponent->BindAxis("Zoom", this, &ACPlayer::OnZoom);
 
 	PlayerInputComponent->BindAction("Run", EInputEvent::IE_Pressed, this, &ACPlayer::OnRun);
 	PlayerInputComponent->BindAction("Run", EInputEvent::IE_Released, this, &ACPlayer::OffRun);
@@ -153,3 +162,9 @@ void ACPlayer::ChangeColor(FLinearColor InColor)
 	for (UMaterialInstanceDynamic* material : Materials)
 		material->SetVectorParameterValue("BodyColor", InColor);
 }//이런식으로 블프와 통신하도록 많이 사용한다
+
+void ACPlayer::OnZoom(float InAxisValue)
+{
+
+	//Zooming += (Zoomspee)
+}

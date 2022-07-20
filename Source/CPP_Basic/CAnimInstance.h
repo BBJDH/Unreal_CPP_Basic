@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "05_IK/CFeetComponent.h"
 #include "CAnimInstance.generated.h"
 
 /**
@@ -15,8 +16,15 @@ class CPP_BASIC_API UCAnimInstance : public UAnimInstance
 
 protected:
 	UPROPERTY(BlueprintReadOnly, Category = "Animation")
-
 	float Speed;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
+	bool bfeet;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
+	FFeetData FeetData;
+
+
 
 //public:
 //	void BlueprintBeginPlay_Implementation();
