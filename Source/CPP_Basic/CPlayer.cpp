@@ -11,6 +11,7 @@
 #include "Components/CapsuleComponent.h"
 #include "Components/InputComponent.h"  //입력 컴포넌트
 #include "05_IK/CFeetComponent.h"
+#include "05_IK/CZoomComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 
 ACPlayer::ACPlayer()
@@ -20,6 +21,10 @@ ACPlayer::ACPlayer()
 	//어느 Actor에 소속될지/어디에서 생성될지(InActor), 할당받을 컴포넌트 포인터, 생성이름, 달라붙을 부모(유무 포함)	
 	CHelpers::CreateComponent<USpringArmComponent>(this, &SpringArm, "SpringArm", GetCapsuleComponent());
 	CHelpers::CreateComponent<UCameraComponent>(this, &Camera, "Camera", SpringArm);
+
+	CHelpers::CreateActorComponent<UCZoomComponent>(this, &Zoom, "Zoom");
+	CHelpers::CreateActorComponent<UCFeetComponent>(this, &Feet, "Feet");
+
 
 	bUseControllerRotationYaw = false;
 	//컨트롤러(하위 카메라) Yaw 회전 끄기
@@ -60,7 +65,6 @@ ACPlayer::ACPlayer()
 	SpringArm->bUsePawnControlRotation = true;	//Pawn따라서 회전할지
 
 
-	CHelpers::CreateActorComponent<UCFeetComponent>(this, &Feet, "Feet");
 
 }
 
@@ -110,7 +114,7 @@ GetInputComponent를 만들어서 전달
 	PlayerInputComponent->BindAxis("HorizontalLook", this, &ACPlayer::HorizontalLook);
 	PlayerInputComponent->BindAxis("VerticalLook", this, &ACPlayer::VerticalLook);
 
-	PlayerInputComponent->BindAxis("Zoom", this, &ACPlayer::OnZoom);
+	PlayerInputComponent->BindAxis("Zoom", Zoom, &UCZoomComponent::SetZoomValue);
 
 	PlayerInputComponent->BindAction("Run", EInputEvent::IE_Pressed, this, &ACPlayer::OnRun);
 	PlayerInputComponent->BindAction("Run", EInputEvent::IE_Released, this, &ACPlayer::OffRun);
@@ -162,9 +166,3 @@ void ACPlayer::ChangeColor(FLinearColor InColor)
 	for (UMaterialInstanceDynamic* material : Materials)
 		material->SetVectorParameterValue("BodyColor", InColor);
 }//이런식으로 블프와 통신하도록 많이 사용한다
-
-void ACPlayer::OnZoom(float InAxisValue)
-{
-
-	//Zooming += (Zoomspee)
-}

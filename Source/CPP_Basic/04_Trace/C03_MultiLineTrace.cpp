@@ -2,6 +2,8 @@
 #include "Global.h"
 #include "Components/TextRenderComponent.h"
 
+//#define LOG_AC03_MultiLineTrace 1
+
 
 AC03_MultiLineTrace::AC03_MultiLineTrace()
 {
@@ -27,8 +29,8 @@ void AC03_MultiLineTrace::Tick(float DeltaTime)
 	FVector start1 = FVector(start.X + 50, start.Y, start.Z);	//더 깊은 쪽
 	FVector start2 = FVector(start.X - 50, start.Y, start.Z);	//가까운 쪽
 
-	FVector end1 = start1 * GetActorForwardVector() * 500;
-	FVector end2 = start2 * GetActorForwardVector() * 500;
+	FVector end1 = start1 + GetActorForwardVector() * 500;
+	FVector end2 = start2 + GetActorForwardVector() * 500;
 
 	//FVector end1 = start1 * GetActorForwardVector()
 
@@ -72,6 +74,10 @@ void AC03_MultiLineTrace::Tick(float DeltaTime)
 	//ObjectTypes에 의해 지정된 유형의 모든 관통을 반환
 	//WorldDynamic으로 바꾸면 충돌 제외됨
 
+#if LOG_AC03_MultiLineTrace
+
+
+
 	TotalTime += DeltaTime;
 	if (TotalTime >= 2.0f)
 	{
@@ -85,6 +91,8 @@ void AC03_MultiLineTrace::Tick(float DeltaTime)
 		for (FHitResult& hitResult : hitResult2)
 			CLog::Log(hitResult.GetActor()->GetName());
 	}
+
+#endif
 
 
 }

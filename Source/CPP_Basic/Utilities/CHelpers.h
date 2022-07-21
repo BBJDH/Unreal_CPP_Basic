@@ -72,12 +72,33 @@ public:
 	static void CreateActorComponent(AActor* InActor, T** OutComponent, FName InName)
 	{
 		*OutComponent = InActor->CreateDefaultSubobject<T>(InName);
+		//CreateComponent 함수 참고
 	}
 
 	template<typename T>
 	static T* GetComponent(AActor* InActor)
 	{
 		return Cast<T>(InActor->GetComponentByClass(T::StaticClass()));
+		//GetComponents는 해당액터의 모든 컴포넌트들을 가져온다
+		//단일 컴포넌트, 원하는 클래스로 가져오도록 템플릿 작성
+	}
+
+	template<typename T>
+	static T* GetComponent(AActor* InActor, const FString & InName)
+	{
+		TArray<T *> components;
+
+		InActor->GetComponens<T>(components);
+
+		for (T* COMPONENT : components)
+		{
+			if (component->GetName() == InName)
+				return COMPONENT;
+		}
+		
+		return nullptr;
+		//GetComponents는 해당액터의 모든 컴포넌트들을 가져온다
+		//단일 컴포넌트, 원하는 클래스로 가져오도록 템플릿 작성
 	}
 
 

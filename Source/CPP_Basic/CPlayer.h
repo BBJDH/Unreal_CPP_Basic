@@ -19,16 +19,6 @@ class CPP_BASIC_API ACPlayer : public ACharacter
 		//UPROPERTY(EditDefaultsOnly, Category = "Rifle")
 		//TSubclassOf<class ACRifle> RifleClass;
 
-private:
-
-	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
-	float ZoomSpeed = 1000;
-
-	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
-	FVector2D ZoomRange = FVector2D(0, 500);
-
-	UPROPERTY(EditDefaultsOnly, Category = "Zoom")
-	float ZoomInterpSpeed = 5;
 
 
 
@@ -37,6 +27,12 @@ private:
 
 	UPROPERTY(VisibleDefaultsOnly)
 	class UCameraComponent* Camera;
+
+private:
+
+
+	UPROPERTY(VisibleDefaultsOnly)
+	class UCZoomComponent* Zoom;
 
 	UPROPERTY(VisibleDefaultsOnly)
 		class UCFeetComponent* Feet;
@@ -60,7 +56,6 @@ private:
 	void HorizontalLook(float InAxisValue);
 	void VerticalLook(float InAxisValue);
 
-	void OnZoom(float InAxisValue);
 
 private:
 	void OnRun();
@@ -77,6 +72,5 @@ private:
 private:
 	//class ACRifle* Rifle;
 
-private:
-	float Zooming;
+
 };

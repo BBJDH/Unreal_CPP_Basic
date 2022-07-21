@@ -6,6 +6,8 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 
+#define LOG_UCFeetComponent 1
+
 UCFeetComponent::UCFeetComponent()
 {
 
@@ -27,8 +29,8 @@ void UCFeetComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	float leftDistance, rightDistance;
-	FRotator leftRotation, rightRotation;
+	float leftDistance, rightDistance;		//받아올 발 간격
+	FRotator leftRotation, rightRotation;	//받아올 발 회전각
 
 	Trace(LeftSocket, leftDistance, leftRotation);
 	Trace(RightSocket, rightDistance, rightRotation);
@@ -45,13 +47,25 @@ void UCFeetComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	Pelvis를 먼저 조정해 높이를 잡고
 **************************************/
 	Data.PelvisDistance.Z = UKismetMathLibrary::FInterpTo(Data.PelvisDistance.Z, offset, DeltaTime, InterpSpeed);
+	//선형보간(델타식) 변동값, 목표값, 델타시간, 보간속도
 
 	Data.LeftDistance.X = UKismetMathLibrary::FInterpTo(Data.LeftDistance.X, (leftDistance - offset), DeltaTime, InterpSpeed);
-	Data.RightDistance.X = UKismetMathLibrary::FInterpTo(Data.RightDistance.X, (rightDistance - offset), DeltaTime, InterpSpeed);
+	Data.RightDistance.X = UKismetMathLibrary::FInterpTo(Data.RightDistance.X, -(rightDistance - offset), DeltaTime, InterpSpeed);
 
 
 	Data.LeftRotation = UKismetMathLibrary::RInterpTo(Data.LeftRotation, leftRotation, DeltaTime, InterpSpeed);
 	Data.RightRotation = UKismetMathLibrary::RInterpTo(Data.RightRotation, rightRotation, DeltaTime, InterpSpeed);
+
+#if LOG_UCFeetComponent
+	CLog::Print(Data.PelvisDistance, 11);
+	CLog::Print(Data.LeftDistance, 12);
+	CLog::Print(Data.RightDistance, 13);
+	CLog::Print(Data.LeftRotation, 14);
+	CLog::Print(Data.RightRotation, 15);
+	//디버깅이 필요없다면 맨위의 define을 지우자
+#endif
+
+
 }
 
 void UCFeetComponent::Trace(FName InName, float & OutDistance, FRotator& OutRotation)
