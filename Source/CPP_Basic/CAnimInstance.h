@@ -7,7 +7,9 @@
 #include "CAnimInstance.generated.h"
 
 /**
- * 
+ #include "05_IK/CFeetComponent.h"
+ 포인터가 아니라면 헤더 선언을 해주자
+
  */
 UCLASS()
 class CPP_BASIC_API UCAnimInstance : public UAnimInstance
@@ -15,7 +17,7 @@ class CPP_BASIC_API UCAnimInstance : public UAnimInstance
 	GENERATED_BODY()
 
 protected:
-	UPROPERTY(BlueprintReadOnly, Category = "Animation")
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
 	float Speed;
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animation")
